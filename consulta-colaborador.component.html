@@ -1,0 +1,370 @@
+<div class="container">
+  <div class="header">
+    <div class="header-content">
+      <img src="assets/logo des.grafico.png" alt="logoTMKT">
+      <h3>Consulta Colaborador</h3>
+    </div>
+    <div class="header-content">
+      <img src="assets/logo_white_2.png" alt="imageTMKT">
+    </div>
+    <div class="header-content">
+      <a href="http://intranet.tmktbrasil.com.br" aria-label="Sair">
+        <svg xmlns="http://www.w3.org/2000/svg" title="Sair" width="32" height="32" fill="currentColor"
+          class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+          <title>Sair</title>
+          <path fill-rule="evenodd"
+          d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />
+          <path fill-rule="evenodd"
+          d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+<div class="center-container">
+
+<div class="info-container">
+
+<h2 class="title-green">Cadastro de Funcionário</h2>
+<hr>
+</div>
+
+  <div class="wrapper">
+    <div *ngIf="dadosPesquisa">
+  <div class="input-wrapper">
+    <label for="nome" class="label-bold">Nome:</label>
+    <input type="text" id="nome" class="input-nome" [(ngModel)]="nome" [disabled]="!isEditing"><br><br>
+  </div>
+
+  <div class="input-row">
+    <div class="input-wrapper">
+      <label for="matricula" class="label-bold">Matrícula:</label>
+      <input type="text" id="matricula" [(ngModel)]="nrreg" [disabled]="!isEditing">
+    </div>
+  
+    <div class="input-wrapper">
+      <label for="dbr" class="label-bold">DBR:</label>
+      <input type="text" id="DBR" [(ngModel)]="dbr" [disabled]="!isEditing">
+    </div>
+  
+    <div class="input-wrapper">
+      <label for="superior" class="label-bold">Superior:</label>
+      <input type="text" id="superior" [(ngModel)]="matricula_superior" [disabled]="!isEditing"> 
+    </div>   
+  </div>
+
+  
+<div class="input-wrapper">
+  <label for="nome-superior" class="label-bold">Nome <br> Superior:</label>
+  <input type="text" id="nome-superior" [(ngModel)]="superior" [disabled]="!isEditing">
+  <button #chefiaBtn *ngIf="isEditing" (click)="toggleModal('chefia')" id="alterar-chefia">Alterar Chefia</button>
+</div>
+
+ 
+   <div class="box-wrapper">
+    <div class="input-wrapper">
+      <label class="label-bold" for="CentroResultadoExterno">Código <br> CR:</label>
+      <input type="text" id="codigoCentroResultadoExterno" [(ngModel)]="codigoCentroResultadoExterno" mask="00.00.0.00.0000.00" [disabled]="!isEditing">
+      
+    <div class="input-wrapper">
+      <label class="label-bold" for="descricaoCentroResultado">Descrição <br> CR:</label>
+      <input type="text" id="descricaoCentroResultado" [(ngModel)]="descricaoCentroResultado" [disabled]="!isEditing">
+      <button *ngIf="isEditing" (click)="toggleModal('cr')" id="alterar-cr">Alterar CR</button>
+    </div>
+  </div>
+<div class="input-wrapper">
+  <label for="cpf" class="label-bold">CPF:</label>
+  <input type="text" id="cpf" [(ngModel)]="cpf" mask="000.000.000-00" [disabled]="!isEditing">
+
+    <div class="input-wrapper">
+      <label for="pis" class="label-pis">Pis:</label>
+      <input type="text" id="pis" [(ngModel)]="pis" [disabled]="!isEditing">
+    </div>
+    </div>
+
+    <div class="input-wrapper">
+      <label for="cargo" class="label-bold">Cargo:</label>
+      <select name="cargo" id="cargo" [(ngModel)]="cargo" [disabled]="!isEditing">
+          <option [value]="cargo">{{ cargo }}</option>
+      </select>
+    </div>
+  </div>
+  
+  <div class="input-wrapper">
+      <label for="funcao" class="label-bold">Função:</label>
+      <select name="funcao" id="funcao" [(ngModel)]="funcao" [disabled]="!isEditing">
+          <option [value]="funcao">{{ funcao }}</option>
+      </select>
+  </div>
+</div>
+  
+  <div class="input-wrapper">
+      <label for="perfil" class="label-bold">Perfil:</label>
+      <select id="perfil" class="input-box" [(ngModel)]="selectedPerfil" [disabled]="!isEditing">
+        <option value="">Selecione um perfil</option>
+        <option *ngFor="let perfil of perfis" [value]="perfil['codigoPerfil']">
+          {{ perfil['descricaoPerfil'] }}
+        </option>
+      </select>
+    <div class="input-wrapper">
+      <label for="prioridadeDiscagem" class="label-prioridade">Prioridade de <br> Discagem:</label>
+      <input type="text" id="prioridadeDiscagem" [(ngModel)]="prioridadeDiscagem" [disabled]="!isEditing">
+    </div>
+  </div>
+  
+<div class="input-wrapper">
+  <label for="status" class="label-bold">Status:</label>
+  <div style="display: flex; align-items: center; gap: 8px;">
+      <select name="status" id="Status" [(ngModel)]="status" [disabled]="!isEditing">
+          <option [value]="status">{{ status }}</option>
+      </select>
+      <button #statusBtn *ngIf="isEditing" (click)="toggleModal('status')" id="alterar-status">Alterar Status</button>
+  </div>
+</div>
+
+
+<div class="input-wrapper">
+<label for="expediente" class="label-bold">Expediente:</label>
+<select name="expediente" id="expediente" [(ngModel)]="selectedExpediente" [disabled]="!isEditing">
+    <option value="">Selecione um expediente</option>
+    <option *ngFor="let expediente of expediente" [value]="expediente.codigoExpediente">
+        {{ expediente.descricaoExpediente }}
+    </option>
+</select>
+</div>
+
+
+    <div class="input-wrapper">
+      <label for="codigoacesso" class="label-bold">Código <br> Acesso (W):</label>
+      <input type="text" id="codigoacessoW" [(ngModel)]="codigoAcessoW" [disabled]="!isEditing">
+
+      <label for="codigoacesso" class="label-acesso">Código <br> Acesso (A):</label>
+      <input type="text" id="codigoacessoA" [(ngModel)]="codigoAcessoA" [disabled]="!isEditing">
+  </div>
+  </div>
+
+  <div class="radio-input-wrapper">
+    <label class="radio-label-bold">Remuneração:</label>
+    <div class="radio-group-opcoes">
+      <label>
+        <input type="radio" name="remuneracao" [(ngModel)]="remuneracao" value="fixo" [disabled]="!isEditing"> <strong>Fixo</strong>
+      </label>
+      <label>
+        <input type="radio" name="remuneracao" [(ngModel)]="remuneracao" value="variavel" [disabled]="!isEditing"> <strong>Variável</strong>
+      </label>
+      <label>
+        <input type="radio" name="remuneracao" [(ngModel)]="remuneracao" value="ambos" [disabled]="!isEditing"> <strong>Ambos</strong>
+      </label>
+    </div>
+  </div>
+
+  <div class="radio-input-wrapper">
+    <label class="radio-label-bold">Alimentação:</label>
+    <div class="radio-group-opcoes">
+      <label>
+        <input type="radio" name="alimentacao" [(ngModel)]="alimentacao" value="L" [disabled]="!isEditing"> <strong>Lanche</strong>
+      </label>
+      <label>
+        <input type="radio" name="alimentacao" [(ngModel)]="alimentacao" value="R" [disabled]="!isEditing"> <strong>Refeição</strong>
+      </label>
+    </div>
+  </div>
+  
+  <div class="radio-input-wrapper">
+    <label class="radio-label-bold">Transporte:</label>
+    <div class="radio-group-opcoes">
+      <label>
+        <input type="radio" name="transporte" [(ngModel)]="transporte" value="sim" [disabled]="!isEditing"> <strong>Sim</strong>
+      </label>
+      <label>
+        <input type="radio" name="transporte" [(ngModel)]="transporte" value="nao" [disabled]="!isEditing"> <strong>Não</strong>
+      </label>
+    </div>
+  </div>
+  
+  
+  <div class="box-wrapper">
+    <div class="input-wrapper">
+      <label class="label-bold" for="dataAdmissao">Data Admissão:</label>
+      <input type="text" id="dataAdmissao" [(ngModel)]="dataAdmissao" [disabled]="!isEditing" placeholder="DD/MM/AAAA">
+    <div class="input-wrapper">
+      <label class="label-bold" for="dataDemissao">Data Demissão:</label>
+      <input type="date" id="dataDemissao" [(ngModel)]="novaDataDemissao" [disabled]="!isEditing" placeholder="DD/MM/AAAA">
+    </div>
+  </div>
+
+  <div class="box-wrapper">
+    <div class="input-wrapper">
+      <label class="label-bold" for="dataAtua">Última <br> Atualização:</label>
+      <input type="text" id="dataAtualizacao" [(ngModel)]="ultimaAtualizacao" [disabled]="!isEditing" placeholder="DD/MM/AAAA">
+  <div class="box-wrapper">
+    <div class="input-wrapper">
+      <label class="label-bold" for="site">Site:</label>
+      <select id="site" [(ngModel)]="selectedSite" [disabled]="!isEditing">
+          <option value="" disabled selected>Selecione um site</option>
+          <option *ngFor="let site of sites" [value]="site['codigo_Site']">
+              {{ site['descricao'] }}
+          </option>
+      </select>
+    </div>
+  </div>
+  </div>
+
+<div class="input-wrapper">
+<label for="acoes" class="label-bold">Ações:</label>
+<textarea id="acoes" rows="5" cols="30" [(ngModel)]="acoes" [disabled]="!isEditing"></textarea>
+  </div>
+</div>  
+
+<div class="button-container">
+  <button class="btn-retorno" (click)="openAfastamentoModal()">Retorno de Afastamento</button>
+  <button class="btn-editar" (click)="toggleEdit()">{{ isEditing ? 'Gravar' : 'Editar' }}</button>
+</div>
+
+
+<!-- Modal de Afastamento -->
+<div class="afastamento-modal-background" [ngClass]="{'active': isAfastamentoModalOpen}">
+  <div class="afastamento-modal">
+    <div class="afastamento-modal-content">
+      <span class="close" (click)="closeAfastamentoModal()">&times;</span>
+
+      <div *ngIf="temEventoAberto" class="evento-alerta">
+        <span class="evento-alerta-icone">⚠️</span>
+        <span class="evento-alerta-texto">
+          <strong>Atenção:</strong> Este colaborador possui um evento em aberto.
+        </span>
+      </div>
+      
+      <div class="afastamento-input-row">
+        <div class="afastamento-input-wrapper">
+          <label for="afastamento-matricula" class="label-bold">Matrícula:</label>
+          <input type="text" id="afastamento-matricula" [(ngModel)]="nrreg" disabled>
+        </div>
+      </div>
+
+      <div class="afastamento-input-row">
+        <div class="afastamento-input-wrapper">
+          <label for="afastamento-nome" class="nome">Nome:</label>
+          <input type="text" id="afastamento-nome" [(ngModel)]="nome" disabled>
+        </div>
+      </div>
+
+      <div class="afastamento-input-row">
+        <div class="afastamento-input-wrapper">
+          <label for="afastamento-cargo" class="cargo">Cargo:</label>
+          <input type="text" id="afastamento-cargo" [(ngModel)]="cargo" disabled>
+        </div>
+      </div>
+
+      <div class="afastamento-input-row">
+        <div class="afastamento-input-wrapper">
+          <label for="afastamento-descricao-cr" class="cr">CR:</label>
+          <input type="text" id="afastamento-descricao-cr" [(ngModel)]="descricaoCentroResultado" disabled>
+        </div>
+      </div>
+
+      <div class="afastamento-input-row">
+        <div class="afastamento-input-wrapper">
+          <label for="afastamento-dataInicio" class="label-bold">DT Inic:</label>
+          <input type="date" id="afastamento-dataInicio" [(ngModel)]="dataInicio">
+        </div>
+      </div>
+
+      <div class="afastamento-input-row">
+        <div class="afastamento-input-wrapper">
+          <label for="afastamento-dataFim" class="label-bold">DT Fim:</label>
+          <input type="date" id="afastamento-dataFim" [(ngModel)]="dataFim">
+        </div>
+      </div>
+
+      <div class="afastamento-button-container">
+        <button class="afastamento-confirm-button top-button" (click)="confirmarAfastamento()">Confirmar</button>
+        <button class="afastamento-close-button bottom-button" (click)="closeAfastamentoModal()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="!dadosPesquisa">
+<p>Nenhum dado disponível para exibição.</p>
+</div>
+
+<div class="modal-background" [ngClass]="{'active': isModalOpen}">
+<div class="modal">
+  <h3 *ngIf="modalType === 'chefia'">Alterar Chefia</h3>
+  <h3 *ngIf="modalType === 'cr'">Alterar CR</h3>
+  <h3 *ngIf="modalType === 'status'">Alterar Status</h3>
+
+
+  <div *ngIf="modalType === 'chefia'" class="modal-content">
+    <div class="campo-selecao">
+      <label for="area">Selecione a Área:</label>
+      <select id="area" [(ngModel)]="selectedArea">
+        <option *ngFor="let area of areas" [value]="area['codigoArea']">{{ area['descricaoArea'] }}</option>
+      </select>
+    </div>
+    
+    <div class="campo-selecao">
+      <label for="chefia">Selecione a Chefia:</label>
+      <select id="chefia" [(ngModel)]="selectedChefia">
+        <option *ngFor="let chefia of chefias" [value]="chefia['codigoChefia']">{{ chefia['descricaoChefia'] }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="modalType === 'cr'" class="modal-content">
+    <div class="campo-selecao">
+      <label for="tipoOperacao">Selecione o Tipo de Operação:</label>
+      <select id="tipoOperacao" [(ngModel)]="selectedTipoOperacao">
+        <option *ngFor="let tipo of tipoOperacao" [value]="tipo['codigoTipoArea']">{{ tipo['descricaoTipoArea'] }}</option>
+      </select>
+    </div>
+
+    <div class="campo-selecao">
+      <label for="centroResultado">Selecione o Centro de Resultado:</label>
+      <select id="centroResultado" [(ngModel)]="selectedCentroResultado">
+        <option *ngFor="let cr of centroResultado" [value]="cr['codigoCentroResultado']">{{ cr['descricaoCentroResultado'] }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="modalType === 'status'" class="modal-content">
+    <div class="campo-selecao">
+      <label for="evento">Selecione o Evento:</label>
+      <select id="evento" [(ngModel)]="selectedEvento">
+        <option *ngFor="let evento of eventos" [value]="evento['codigoConsultaEvento']">
+          {{ evento['eventoConsultaEvento'] }}
+        </option>
+      </select>
+    </div>
+
+    <table class="tabela-status">
+      <thead>
+        <tr>
+          <th>Evento</th>
+          <th>Data Saída</th>
+          <th>Data Retorno</th>
+          <th>Data Inclusão</th>
+          <th>Evn Código</th>
+          <th>Matrícula Inclusão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evento of eventosFuncionario">
+          <td>{{ evento['eventoConsultaEventoFuncionario'] }}</td>
+          <td>{{ evento['data_Saida'] | date:'dd/MM/yyyy' }}</td>
+          <td>{{ evento['data_Retorno'] | date:'dd/MM/yyyy' }}</td>
+          <td>{{ evento['data_Inclusao'] | date:'dd/MM/yyyy' }}</td>
+          <td>{{ evento['matricula_Inclusao'] }}</td>
+          <td>{{ evento['evn_Codigo'] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+    <button class="openmodal top-button" (click)="confirmarAlteracao()">Confirmar</button> 
+    <button class="close-modal bottom-button" (click)="toggleModal()">Fechar</button>
+</div>
+
+
